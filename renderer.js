@@ -38,6 +38,10 @@ function delegateEvents () {
   if (saveConfigButtonEl) {
     saveConfigButtonEl.onclick = saveConfig
   }
+
+  document.querySelectorAll('a').forEach(el => {
+    el.onclick = openUrlWithBrowser
+  })
 }
 
 function launchApp () {
@@ -99,7 +103,10 @@ function toMoneyAmountString (value) {
 }
 
 function openUrlWithBrowser (event) {
-  let url = event.target.getAttribute('data-href')
+  event.preventDefault()
+  event.stopPropagation()
+
+  let url = event.target.getAttribute('href')
   shell.openExternal(url)
 }
 
@@ -127,8 +134,7 @@ function renderSearchResult (payload) {
     imgEl.setAttribute('height', result.imageHeight)
 
     let anchorEl = document.createElement('a')
-    anchorEl.setAttribute('href', '#')
-    anchorEl.setAttribute('data-href', result.auctionItemUrl)
+    anchorEl.setAttribute('href', 'result.auctionItemUrl')
     anchorEl.onclick = openUrlWithBrowser
     anchorEl.innerText = result.title
 
