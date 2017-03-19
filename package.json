@@ -9,6 +9,7 @@
     "spectre.css": "^0.2.1"
   },
   "scripts": {
+    "debug": "electron .",
     "build-for-darwin": "electron-packager ./ YahooAuctionSearchTool --out dist/ --platform=darwin --arch=x64 --electron-version=1.6.1 --overwrite"
   },
   "devDependencies": {
