@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Yahoo!オークション検索ツール</title>
+
+      <style>
+        .top-nav-header {
+          background: #efefef;
+        }
+
+        .config-button-container {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+
+        .config {
+          border: none;
+          background-color: transparent;
+          background-image: url("config.svg");
+          width: 16px;
+          height: 16px;
+        }
+
+        .config:hover {
+          cursor: pointer;
+        }
+      </style>
+
+      <link rel="stylesheet" href="node_modules/spectre.css/dist/spectre.min.css" />
+    </head>
+
+    <body>
+      <section class="container">
+        <form class="columns top-nav-header" name="searchForm">
+          <div class="column col-4">
+            <div class="form-group">
+              <label class="form-label" for="keyword">キーワード</label>
+              <input class="form-input" type="text" name="keyword" />
+            </div>
+          </div>
+
+          <div class="column col-2">
+            <div class="form-group">
+              <label class="form-label">カテゴリ</label>
+              <select class="form-select" name="category">
+                <option value="0">指定しない</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="column col-2">
+            <div class="form-group">
+              <label class="form-label">ソート順</label>
+              <select class="form-select" name="sort">
+                <option value="end">終了時間</option>
+                <option value="img">画像の有無</option>
+                <option value="bids">入札数</option>
+                <option value="cbids">現在価格</option>
+                <option value="bidorbuy">即決価格</option>
+                <option value="affiliate">アフィリエイト</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="column col-2">
+            <div class="form-group">
+              <label class="form-label">商品状態</label>
+              <select class="form-select" name="item_status">
+                <option value="0">指定なし</option>
+                <option value="1">新品</option>
+                <option value="2">中古</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="column col-2">
+            <div class="form-group" style="margin-top:1em;">
+              <button class="btn btn-primary" id="doSearch" disabled>検索する</button>
+              <button class="btn btn-link" type="reset">リセット</button>
+            </div>
+          </div>
+
+          <div class="config-button-container">
+            <button class="config" type="button" id="openConfig"></button>
+          </div>
+        </form>
+
+        <div class="content">
+          <div class="columns">
+            <div class="column toast toast-danger" style="display:none;">
+              <button class="btn btn-clear float-right"></button>
+              <span></span>
+            </div>
+          </div>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th style="width:50%;">商品</th>
+                <th>入札</th>
+                <th>現在価格</th>
+                <th>即決価格</th>
+                <th>終了時間</th>
+              </tr>
+            </thead>
+            <tbody id="searchResult">
+            </tbody>
+          </table>
+
+          <div class="columns">
+            <div class="column col-6">
+              <ul class="pagination" id="pagination">
+              </ul>
+            </div>
+            <div class="column col-6 text-right" style="margin-top:20px;">
+              <strong name="currentRange"></strong> ／
+              <strong name="totalResults"></strong> 件&nbsp&nbsp
+              <strong name="currentPage"></strong> ／
+              <strong name="totalPages"></strong> ページ
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+          <form name="configForm">
+            <div class="modal-header">
+              <button class="btn btn-clear float-right" type="button"></button>
+              <div class="modal-title">設定</div>
+            </div>
+            <div class="modal-body">
+              <div class="content">
+                <div class="form-group">
+                  <label class="form-label" for="app_id">アプリケーションID</label>
+                  <input class="form-input" name="app_id" id="app_id" placeholder="appid" type="text" size=80>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="form-group">
+                <button class="btn" type="button" id="saveConfig">保存</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <template id="searchResultRowTemplate">
+        <tr>
+          <td name="image"></td>
+          <td name="title"></td>
+          <td align="right" name="bids"></td>
+          <td align="right" name="currentPrice"></td>
+          <td align="right" name="bidOrBuy"></td>
+          <td name="endTime"></td>
+        </tr>
+      </template>
+
+      <template id="paginationItemTemplate">
+        <li class="page-item">
+          <a href="#"></a>
+        </li>
+      </template>
+
+      <script type="text/javascript" src="renderer.js"></script>
+    </body>
+  </html>

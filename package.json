@@ -1,0 +1,18 @@
+{
+  "name": "YahooAuctionSearchTool",
+  "version": "1.0.0",
+  "main": "main.js",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "nedb": "^1.8.0",
+    "request": "^2.79.0",
+    "spectre.css": "^0.2.1"
+  },
+  "scripts": {
+    "build-for-darwin": "electron-packager ./ YahooAuctionSearchTool --out dist/ --platform=darwin --arch=x64 --electron-version=1.6.1 --overwrite"
+  },
+  "devDependencies": {
+    "electron": "^1.6.1",
+    "electron-packager": "^8.5.2"
+  }
+}
