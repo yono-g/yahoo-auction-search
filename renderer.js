@@ -134,7 +134,7 @@ function renderSearchResult (payload) {
     imgEl.setAttribute('height', result.imageHeight)
 
     let anchorEl = document.createElement('a')
-    anchorEl.setAttribute('href', 'result.auctionItemUrl')
+    anchorEl.setAttribute('href', result.auctionItemUrl)
     anchorEl.onclick = openUrlWithBrowser
     anchorEl.innerText = result.title
 
